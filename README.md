@@ -52,7 +52,7 @@ This is an ever-expanding list of vocab + definitions that I find useful as a so
 
 ## Software Development: Mobile
 
-- Android development
+- Android development -- [more notes](https://github.com/sunnyyy/AndroidNotes)
   - __Android Studio__ = IDE for Android development ; [website](https://developer.android.com/studio/)
   - __Gradle__ = automation tool to generate builds ; [wiki](https://en.wikipedia.org/wiki/Gradle)
   - __Kotlin__ -- [wiki](https://en.wikipedia.org/wiki/Kotlin_%28programming_language%29)
