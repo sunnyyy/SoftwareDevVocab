@@ -7,7 +7,7 @@ This is an ever-expanding list of vocab + definitions that I find useful as a so
 - __Agile software development__ = a set of values and principles for software development; involves self-organizing cross-functional teams
 - __daily scrum / stand up__ = daily update @ 10:45 now 11:45; give teammates 30-sec brief on what you worked on yesterday + what you'll work on today
 - __P0 = Priority #0__ ; comes before everything else
-- __sprint = 2-week periods, Wed-Tues
+- __sprint__ = 2-week periods
   - sprint planning estimates (for 1/2/4/8/16; may also use Fibonacci):
     - 1 = already know how to fix the bug
     - 2 = minor bug, requires some research
