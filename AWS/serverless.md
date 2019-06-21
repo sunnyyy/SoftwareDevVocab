@@ -10,6 +10,11 @@ ___
 - end users run an __application layer__, which may call the AWS __API Gateway__, which may call services running in AWS __Lambda__
 
 ## Lambda details
+- Lambda is a _serverless_, __compute service__
+  * serverless includes lambda, S2, API Gateway, Dynamo DB, etc.
+- continuous scaling in parallel -- scales out (not up!) automatically
+  * can trigger any # of other lambda functions (e.g. 1 function can trigger 3 others)
+  * architecture can get very complicated; should debug with AWS X-ray
 - languages: Node, Java, Python, C#, Go
 - pricing:
   * first million requests per month = free
@@ -31,17 +36,7 @@ ___
   * you can then roll back _prod_ to v.1 if needed
   * you can also split traffic by specific amounts using aliases to diff. versions (but _not_ `$LATEST`)
 
-### Exam tips
-- Lambda is a _serverless_, __compute service__
-- scales out (not up!) automatically
-- independent (1 event = 1 function)
-- serverless includes lambda, S2, API Gateway, Dynamo DB, etc.
-- can trigger any # of other lambda functions
-- architecture can be very complicated; should debug with AWS X-ray
-
-___
-
-# Time out: What's a (regular, non-AWS) lambda function? I totally forgot!
+## Time out: What's a (regular, non-AWS) lambda function? I totally forgot!
 
 regular function in Python:
 ```Python
