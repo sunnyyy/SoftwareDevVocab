@@ -1,6 +1,6 @@
-# Simple Queue Service (SQS)
+# SQS = Simple Queue Service
 
-## Quick facts:
+## Quick facts
 - web service with message queue that can be used to store messages awaiting process
 - used in _distributed_ systems
 - enables web service apps to quickly / reliably queue messages that one app component generates to be consumed by another component
@@ -15,7 +15,7 @@ user uploads pic to __S3__ --> triggers __Lambda__ --> __SQS__ (waiting to be pr
 ### ex: travel website
 user searches --> search goes to __EC2__ --> search gets packaged in __SQS__ ... <-- EC2 (looking for job) --> calls the APIs of various airlines --> results sent back to first EC2 instance and then back to user
 
-## benefits of SQS
+## Benefits of SQS
 - if you lose an EC2 instance, you won't lose the job
 - using SQS, you can decouple components of an app so they run independently
 - any component in a distributed app can store messages in SQS
@@ -50,7 +50,7 @@ user searches --> search goes to __EC2__ --> search gets packaged in __SQS__ ...
 - regular __short polling__ returns immediately, even if queue being pulled from is empty
 - __long polling__ doesn't return response until a message arrives in the queue, or long poll times out --> can save $$
 
-## Exam tips:
+## Exam tips
 - SQS = distributed message queueing system
 - allows decoupling of app components
 - pull-based

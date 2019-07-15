@@ -15,7 +15,7 @@
 - key material --> this can be provided by you or AWS
 - can __never__ be exported! --> if you need to export your keys, use Cloud HSM
 
-### To set up a CMK:
+### To set up a CMK...
 - enter alias + description
 - choose material option
 - define key's __administrative permissions__ -- IAM users / roles that can admin the key
@@ -25,8 +25,8 @@
 
 ## KMS Envelope Encryption
 
-### Encryption:
+### Encryption
 __master key__ --> _encrypts_ --> __envelope key (data key)__ --> _encrypts_ --> __data__
 
-### Decryption:
+### Decryption
 __encrypted data key__ + __master key__ + __encryption (??) algorithm__ --> _decrypts_ --> __plain text data key__ --> __decrypted data__
