@@ -1,4 +1,4 @@
-# Developer Theory
+# Developer Theory: Basics
 
 ## What's CI/CD?
 - CI = __continuous integration__
@@ -36,6 +36,3 @@
 
 ## Resources
 - white paper: [LINK]
-
-___
-
