@@ -1,7 +1,3 @@
-# Serverless 101
-
-___
-
 # Lambda
 
 ## Layers of abstraction
