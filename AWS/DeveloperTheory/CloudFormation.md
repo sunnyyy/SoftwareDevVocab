@@ -1,7 +1,7 @@
 # CloudFormation
 
 ## Quick facts
-- service that allows you to manage, configure, and provision your AWS infrastructure as code
+- allows you to manage, configure, and provision your AWS infrastructure as code
 - resources are defined in the CloudFormation template
 - CloudFormation interprets the template & makes the API calls to create the resources you defined
 
