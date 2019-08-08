@@ -11,8 +11,35 @@
 - integrates w/ many diff AWS services
 - supports PCI DSS compliance ($ card)
 
-## Terms
+## Vocab
 - users = people
 - group = collections of users
 - role = set of permissions
 - policy = doc that defines 1+ permissions
+
+## Comparing different types of IAM policies
+- 3 types of IAM policies: managed, customer-managed, and inline
+
+### Managed policy
+- created / admin'ed by AWS
+- AWS provides managed policies for common use cases based on job function
+  * ex: AmazonDynamoDBFullAccess
+  * ex: AmazonEC2ReadOnlyAccess
+- these AWS policies allow you to assign permissions to your users / groups / roles without having to write the policy from scratch
+- a single managed policy can be attached to multiple users / groups / roles within the same AWS account & across different accounts
+- written in JSON, but _cannot_ be edited / changed
+
+### Customer-managed policy
+- standalone policy that you create / admin within your own AWS account
+- you can attah it to multiple users / groups / roles but only within your own account
+- to create a customer-managed policy, you can copy an existing AWS managed policy & customize it
+- recommended for if AWS managed policies don't fit your use case
+- written in JSON, _can_ be edited
+
+### Inline policy
+- IAM policy embedded within the user / group / role
+- strict 1:1 relationship between entity & policy (???)
+- when you delete that user / group / role, the proxy will also be deleted
+- AWS generally recommends managed > inline
+- written in JSON, _can_ be edited (???????????)
+- inline policies useful when you're creating a policy that must never (accidentally) be attached to the wrong user / group / role
