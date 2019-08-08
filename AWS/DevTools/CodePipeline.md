@@ -8,7 +8,7 @@
 ## Details
 - allows you to model your release process as a workflow / pipeline, made up of diff tasks
   * e.g. code update triggers build, which when done triggers test, which when passed triggers a deployment
-  * e.g. dev --> pushes source code --> alerts CloudWatch --> goes through CodePipeline --> deploys via CodeDeploy --> goes out to public
+  * e.g. dev ⟶ pushes source code ⟶ alerts CloudWatch ⟶ goes through CodePipeline ⟶ deploys via CodeDeploy ⟶ goes out to public
   * you define what happens & where
 - can be modeled in CodePipeline GUI or CLI
 - integrates with CodeCommit, CodeBuild, CodeDeploy, Lambda, EBS, CloudFormation, ECS, Github, Jenkins

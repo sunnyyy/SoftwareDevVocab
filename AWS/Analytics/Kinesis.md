@@ -19,13 +19,13 @@
 - receives data from producers
   - data retention: 24 hours (default) up to 7 days
   - data stored in __"Shards"__
-    - 1 Shard has 5 TPS for reads --> max total read rate of 2 MB/sec
-    - 1 Shard has 100 TPS for writes --> max total write rate of 1 MB/sec (including partition keys)
+    - 1 Shard has 5 TPS for reads ⟶ max total read rate of 2 MB/sec
+    - 1 Shard has 100 TPS for writes ⟶ max total write rate of 1 MB/sec (including partition keys)
   - total data capacity = `SUM(`capacity of # shards`)`
-- data can then be sent to EC2 consumers --> then DynamoDB, S3, EMR, or Redshift
+- data can then be sent to EC2 consumers ⟶ then DynamoDB, S3, EMR, or Redshift
 
 ## Kinesis Firehose
-- receives data from producers & analyzes it direcly with Lambda --> then sent to S3 --> then Redshift or Elastic Search Cluster
+- receives data from producers & analyzes it direcly with Lambda ⟶ then sent to S3 ⟶ then Redshift or Elastic Search Cluster
 - more automated than Kinesis Streams (no need to manually add Shards)
 - no automatic data retention
 - can analyze data automatically with Lambda

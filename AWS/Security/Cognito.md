@@ -24,8 +24,8 @@
 ### example: shopping app
 - S3 for shop data
 - DynamoDB for customer data
-- customer logs into FB --> AWS Congnito gives them temp credentials
-- temp credentials --> customer logs into your app
+- customer logs into FB ⟶ AWS Congnito gives them temp credentials
+- temp credentials ⟶ customer logs into your app
 
 ## Cognito : User Pools
 - __user pool__
@@ -36,8 +36,7 @@
   * allow you to create unique Identities for users & authenticate them with ID providers
   * with an Identity, you can obtain temp, limited-privilege AWS credentials to access other AWS services
 - example:
-  * __user__ -->
-    - <--> __user pool__ <-- _JWT tokens_ --> __FB__
-    - <-- _AWS credentials_ --> __identity pool__
-    - <--> __AWS resources__
-
+  * __user__ ⟶
+    - ⟷ __user pool__ ⟵ _JWT tokens_ ⟶ __FB__
+    - ⟵ _AWS credentials_ ⟶ __identity pool__
+    - ⟷ __AWS resources__

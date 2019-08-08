@@ -1,4 +1,4 @@
-# EBS = Elastic Beanstalk
+# Elastic Beanstalk
 
 ## Quick facts
 - deploy / scale web apps onto server platforms

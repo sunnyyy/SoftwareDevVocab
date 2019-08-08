@@ -6,14 +6,14 @@
 - enables web service apps to quickly / reliably queue messages that one app component generates to be consumed by another component
 - pull-based system
 - messages contain up to 256 KB of text
-- messages can be kept 1 min <--> 14 days (default = 4 days)
+- messages can be kept 1 min ⟷ 14 days (default = 4 days)
 - guarantees messages processed at least 1x
 
 ### ex: meme website
-user uploads pic to __S3__ --> triggers __Lambda__ --> __SQS__ (waiting to be processed) ... <-- __EC2__ (pulls from SQS) --> sent back to __S3__
+user uploads pic to __S3__ ⟶ triggers __Lambda__ ⟶ __SQS__ (waiting to be processed) ... ⟵ __EC2__ (pulls from SQS) ⟶ sent back to __S3__
 
 ### ex: travel website
-user searches --> search goes to __EC2__ --> search gets packaged in __SQS__ ... <-- EC2 (looking for job) --> calls the APIs of various airlines --> results sent back to first EC2 instance and then back to user
+user searches ⟶ search goes to __EC2__ ⟶ search gets packaged in __SQS__ ... ⟵ EC2 (looking for job) ⟶ calls the APIs of various airlines ⟶ results sent back to first EC2 instance and then back to user
 
 ## Benefits of SQS
 - if you lose an EC2 instance, you won't lose the job
@@ -48,7 +48,7 @@ user searches --> search goes to __EC2__ --> search gets packaged in __SQS__ ...
 
 ## Polling (retrieving messages) in SQS
 - regular __short polling__ returns immediately, even if queue being pulled from is empty
-- __long polling__ doesn't return response until a message arrives in the queue, or long poll times out --> can save $$
+- __long polling__ doesn't return response until a message arrives in the queue, or long poll times out ⟶ can save $$
 
 ## Exam tips
 - SQS = distributed message queueing system
@@ -56,7 +56,7 @@ user searches --> search goes to __EC2__ --> search gets packaged in __SQS__ ...
 - pull-based
 - types of queue
   - standard queue = best effort ordering; message delivered 1+ x
-  - FIFO queue = strinct ordering; message delivered 1x; no duplicates --> e.g. banking
+  - FIFO queue = strinct ordering; message delivered 1x; no duplicates ⟶ e.g. banking
 - visibility timeout
   - default is 30 secs; can increase
   - max is 12 hours

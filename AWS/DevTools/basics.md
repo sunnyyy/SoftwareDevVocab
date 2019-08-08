@@ -31,7 +31,7 @@
 ## AWS tools for CI/CD
 - CodePipeline
   - CodeCommit = source control
-  - CodeBuild = build-management system --> compile source code, run tests, package code
+  - CodeBuild = build-management system ⟶ compile source code, run tests, package code
   - CodeDeploy = deploy packaged app
 
 ## Resources

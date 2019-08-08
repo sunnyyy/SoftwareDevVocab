@@ -70,7 +70,7 @@
     - e.g. run functional tests on new app
     - e.g. de-register & re-register instances with a load balancer
 - _MUST_ be placed in the root of the directory of your revision
-  * e.g. `ls mywebapp` --> `appspec.yml     /scripts     /config     /src`
+  * e.g. `ls mywebapp` ⟶ `appspec.yml     /scripts     /config     /src`
 - supported hooks:
   * __BeforeBlockTrafic__ = run tasks on instances before they're deregistered from ELB
   * __BlockTraffic__ = deregister instances from ELB
