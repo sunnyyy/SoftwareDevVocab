@@ -49,11 +49,13 @@
 | P3   | graphics/general purpose GPU ("pics") | • ML<br>• Bitcoin mining |
 | X1   | memory optimized ("xtreme memory")    | • [SAP HANA](https://en.wikipedia.org/wiki/SAP_HANA)<br>• [Apache Spark](https://en.wikipedia.org/wiki/Apache_Spark) = general-purpose cluster-computing framework; implicit data parallelism and fault tolerance |
 
+## 
+
 ###### Notes:
 [IOPS]: https://en.wikipedia.org/wiki/IOPS
-###### [IOPS](https://en.wikipedia.org/wiki/IOPS) = IO operations per second; used to measure performance for compute resources
-###### [MapReduce](https://en.wikipedia.org/wiki/MapReduce) = model to process and generate big data sets with a parallel, distributed algorithm on a cluster
-###### [Apache Hadoop](https://en.wikipedia.org/wiki/Apache_Hadoop) = network of many computers to solve problems involving massive amounts of data and computation
-###### [SAP HANA](https://en.wikipedia.org/wiki/SAP_HANA) = in-memory, column-oriented, relational database management system
-###### [Apache Spark](https://en.wikipedia.org/wiki/Apache_Spark) = general-purpose cluster-computing framework; implicit data parallelism and fault tolerance
+- [IOPS](https://en.wikipedia.org/wiki/IOPS) = IO operations per second; used to measure performance for compute resources
+- [MapReduce](https://en.wikipedia.org/wiki/MapReduce) = model to process and generate big data sets with a parallel, distributed algorithm on a cluster
+- [Apache Hadoop](https://en.wikipedia.org/wiki/Apache_Hadoop) = network of many computers to solve problems involving massive amounts of data and computation
+- [SAP HANA](https://en.wikipedia.org/wiki/SAP_HANA) = in-memory, column-oriented, relational database management system
+- [Apache Spark](https://en.wikipedia.org/wiki/Apache_Spark) = general-purpose cluster-computing framework; implicit data parallelism and fault tolerance
 

@@ -33,13 +33,18 @@
 
 ## EXAMPLE TEMPLATE
 
-___
+## Nested stacks
+- nested stacks allow reuse of CloudFormation code for common use cases
+  * e.g. standard config for a LB, web server, app server, etc.
+- instead of copying code each time, you create a standard template for each common use cases & reference it from within another CloudFormation template
+  * ⟶ becomes a template within a template
+- to do this:
+  * create a CloudFormation template
+  * ⟶ store it in S3
+  * ⟶ reference it in the __*Resources*__ section of any (future) CloudFormation template using the __*Stack*__ resource type
 
-## CloudFormation: nested stacks
-- __nested stacks__ allow reuse of CloudFormation code for common use cases
-- e.g. standard config for a load balancer, web server, app server, etc.
-- instead of copying out code each time, create a standard template for each case & reference them from within your CloudFormation template
-- (template within a template)
-- simply create a CloudFormation template & store it in S3, then reference it in the `Resources` section of any CloudFormation template using __stack resource type__
+-----
+# CloudFormation Labs
 
-## EXAMPLE
+## Lab
+>>>>>>> edits + more notes
