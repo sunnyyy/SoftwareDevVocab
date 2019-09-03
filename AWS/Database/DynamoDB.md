@@ -225,3 +225,42 @@ no.2
 - expiration is set for X time after the session began
 - when current time > TTL item will be expired / marked for deletion
 - you can filter out expired items from your queries & scans
+
+# DynamoDB Streams
+- a time-ordered sequence of modifications at the item level (e.g. insert, update, delete)
+- logs encrypted at rest & stored for 24 hours
+- accessed using a (separate) dedicated endpoint
+- by default, primary key is recorded
+- before/after images can be captured
+- [FLOW DIAGRAM]
+- processing
+  - very good for serverless (?)
+  - apps can take actions based on contents
+  - event source for Lambda --> Lambda polls the DynamoDB stream --> executes Lambda code based on a DynamoDB Streams event
+  - [FLOW DIAGRAM]
+
+# `ProvisionalThroughputExceededException`
+- your request rate is too high for the read/write capacity you provisioned for your table
+- SDK will auto-retry until requests are successful
+- if you're not using the SDK, you can configure:
+  - reduce request frequency
+  - use __exponential backoff__
+    - progressively longer waits between consecutive retries for improved flow control
+    - e.g. first try 50 ms wait, then 100 ms, then 200 ms, etc.
+    - if after 1 min this doesn't solve the problem, your request size may be exceeding the throughout for your read/write capacity
+    - if too many __*reads*__ --> consider DAX or Elasticache
+    - if too many __*writes*__ --> increase capacity
+
+# DynamoDB Summary
+- low-latency, NoSQL DB
+- tebles, items (rows), attributes (cols)
+- supposrts both document (?) & key-value data models
+- supported formats: JSON, HTML, XML
+- 2 types of primary keys
+  - partition key
+  - partition key + sort key
+- 2 consistency models
+  - strongly consistent
+  - eventually consistent
+- access is controlled using IAM policies
+- fine-grained access control via IAM
