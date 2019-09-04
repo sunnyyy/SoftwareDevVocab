@@ -2,7 +2,7 @@
 
 ## Quick facts
 - provides resizable compute capacity in the cloud
-- reduces time to obtain/boot new servers (vs. historically, physcial servers)
+- reduces time to obtain / boot new servers (vs. historically, physcial servers)
 - quickly scale capacity ↕
 - charges you only for the capacity you use
 - failure-resilient
@@ -34,7 +34,7 @@
     - if you can't use multi-tenant virtualization, e.g. for compliance with healthcare laws
     - if you have an existing server-bound license and want to continue to use that
 
-## Types
+## Instance types
 | type | purpose                               | example |
 |------|---------------------------------------|---------|
 | F1   | field-programmable gate array         | • genomics research<br>• financial analytics<br>• real-time video processing<br>• big data |
@@ -49,7 +49,34 @@
 | P3   | graphics/general purpose GPU ("pics") | • ML<br>• Bitcoin mining |
 | X1   | memory optimized ("xtreme memory")    | • [SAP HANA](https://en.wikipedia.org/wiki/SAP_HANA)<br>• [Apache Spark](https://en.wikipedia.org/wiki/Apache_Spark) = general-purpose cluster-computing framework; implicit data parallelism and fault tolerance |
 
-## 
+## Hardware disk types
+- solid
+  - general purpose SSD (solid state drive)
+  - provisioned [IOPS][IOPS] SSD --> for high-performance
+- magnetic
+  - throughput-optimized HDD
+  - cold HHD (cheapest)
+  - magnetic
+
+## Security / Encryption
+- __least privilege__ = always give users minimum access required
+- __create groups__
+  - assign users to groups --> users inherit group permissions
+  - permissions assigned with __policy documents__
+- __secret access key__
+  - you only see it once; if you don't save it, you can delete it and regerenate a new one --> you'd need to rerun `aws configure`
+  - don't use just one access key --> use one key per dev, so that you don't have to recreate keys each time someone leaves the company
+- even better, use __roles__
+  - preferred from a security perspective over secret access keys
+  - controlled by policies
+  - if you change a policy on a role, the change is immediate
+  - you can attach / detach roles to running EC2 instances without having to stop / terminate them
+- you can __encrypt__ the root device volume using OS-level encryption
+  - you'd first take a snapshot of that volume, then create a copy of it with encryption
+  - you can then make an AMI (Amazon achine image) of this snapshot and deploy the encrypted root device volume
+  - you can encrypt additional attached volumes using the console, CLI, or API
+
+-----
 
 ###### Notes:
 [IOPS]: https://en.wikipedia.org/wiki/IOPS
