@@ -47,4 +47,4 @@
 # CloudFormation Labs
 
 ## Lab
->>>>>>> edits + more notes
+- managment tools --> CloudFormation --> create a new stack --> select template (sample or upload) --> one previously uploaded to S3 (?)

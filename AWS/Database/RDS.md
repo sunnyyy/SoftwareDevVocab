@@ -54,7 +54,7 @@
   * Memcached
   * Redis
 
-## Backup / Multi-AZ / Read Replicas
+## Backups
 - AWS has 2 types of backups
   * automated backups
   * DB snapshots
@@ -76,40 +76,56 @@
 - restoring backups
   * when you resore either an auto-backup or a manual snapshot, the restored version of the DB will be a new RDS instance with a new DNS endpoint
   * e.g. `original.us-east-1.rds.aws.com` --> `restored.us-east-1.rds.aws.com`
-- encryption at rest
-  * supported for MySQL, Oracle, SQL server, PostgreSQL, MariaDB, Amazon Aurora
-  * done via KMS
-  * once your RDS instance is encrypted, the data stored at rest in the underlying storage is encrypted, as well as its auto backups, read replicas, and snapshots
-  * presently, you can't encrypt an existing DB instance
-  * to encrypt an existing DB, you have to first create a snapshot, make a copy of the snapshot, & encrypt the copy (during setup)
-- multi-AZ
-  * you have an exact copy of prod DB in another AZ, and AWS handles the replication (sync'ing) for you
-  * in the event of a planned DB maintenance, DB instance failure, or AZ failure, Amazon RDS will auto-failover to standby RDS instance so that the DB resumes quickly without manual admin intervention
-  * e.g. if you have an RDS instance with DNS `myRds.us-east-1a.rds.aws.com` and a standby RDS instance `myRds.us-east-1b.rds.aws.com`, the DNS endpoint will be auto-switched if AWS discovers that RDS instance #1 is down
-  * for disaster recovery only!
-  * __*NOT*__ for improved performance --> for that, use read replicas
-  * includes:
-    - SQL server, Oracle, MySQL server, PostgreSQL, MariaDB
 
-## Read Replicas
-- read replica = a read-only copy of your prod DB
-- achieved using an async replication from the primary RDS instance to the read replica
-- used for very read-heavy DB workloads
-- available for
+## Encryption at rest
+- done via KMS
+- once your RDS instance is encrypted, the data stored at rest in the underlying storage is encrypted, as well as its auto backups, read replicas, and snapshots
+- presently, you can't directly encrypt an existing DB instance
+- to encrypt an existing DB, you have to first create a snapshot, make a copy of the snapshot, & encrypt the copy (during setup)
+- available for:
+  - SQL server
+  - Oracle
   - MySQL server
   - PostgreSQL
   - MariaDB
   - Amazon Aurora
-- used for scaling out
-- __*NOT*__ used for disaster recovery
+
+## Multi-AZ
+- you have an exact copy of a prod DB in another AZ, and AWS handles the replication (sync'ing) for you
+- if emergency, Amazon RDS will auto-failover to standby RDS instance
+  - e.g. if you have an RDS instance with DNS `myRds.us-east-1a.rds.aws.com` and a standby RDS instance `myRds.us-east-1b.rds.aws.com`, the DNS endpoint will be auto-switched
+- uses:
+  - for disaster recovery only!
+    - ex: planned DB maintenance
+    - ex: DB instance failure
+    - ex: AZ failure
+  - __*NOT*__ for improved performance --> for that, use __read replicas__
+- available for:
+  - SQL server
+  - Oracle
+  - MySQL server
+  - PostgreSQL
+  - MariaDB
+
+## Read Replicas
+- a read-only copy of your prod DB, done via async replication from the primary RDS instance to the read replica
+- use cases:
+  - for very read-heavy DB workloads
+  - for scaling out
+  - __*NOT*__ for disaster recovery --> for that, use __multi-AZ__
 - details:
   - must have auto-backups enabled to deploy a read replica
-  - up to 5 read replica copies of any DB
+  - max 5 read replicas of any DB
   - you can have read replicas of read replicas --> but watch out for latency!
   - each read replica will have its own DNS endpoint
-  - a read replica _can_ be in a different AZ
-  - you _can_ make a read replica of a multi-AZ source DB
-  - you _can_ have a read replica in a 2nd region
+  - your read replica can be in a different AZ
+  - you can create a read replica of a multi-AZ source DB
+  - your read replica can be in a 2nd region
   - read replicas can be promoted to be their own DB __*BUT*__ this will break the replication
     - useful for if you want to run an experiment on your data without affecting read data
-  
+- available for:
+  - MySQL server
+  - PostgreSQL
+  - MariaDB
+  - Amazon Aurora
+
