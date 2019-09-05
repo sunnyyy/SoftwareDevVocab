@@ -1,0 +1,185 @@
+# Notes from the 2019 Open Source Summit of North America
+
+## Wednesday, August 21
+## Thursday, August 22
+## Friday, August 23
+
+## Notes: Keynotes
+
+### Lightning talks
+- Keynote 1
+  - new data initiative: Confidential Computing Consortium
+    - confidential computing = security + privacy
+    - focus on encrypting data in transit, at rest, *and in use*
+    - idea is that, if you need to manipulate data, you manipulate the *encrypted* data
+    - recently, the healthcare field is trying to do this
+    - data privacy practices pledge (https://datapractices.org/)
+  - new open hardware initiative: OpenPOWER
+- Keynote: infrastructure matters, by [Cheryl Huang](oicheryl.com)
+  - data centers emit as much CO_2 as an airline; as a country, only surpassed by the US & China
+  - Spotify: fixed their CPU until it improved 2-3x
+  - city of Montreal: had 100s of VMs; reduced it to 8 machines
+  - since global internet traffic = 75 TB/sec, any changes the industry makes will have a huge impact
+- Keynote: calling all doc stars, by @megansanicki
+  - documentation = #1 driver of users
+  - protips: 1) target first-time contributors, 2) ensure smooth process, 3) recognition (e.g. in release notes
+- Keynote: reproducible ML workflow with Kubernetes pipelines
+  - ML history:
+    - 1970s: decision trees
+    - 1990s: modeling & simulation
+    - 2010s: deep learning
+    - now: embedded intelligence
+  - ML will soon be synonymous with software
+  - "lack of ML lifecycle management" (?)
+  - ML repo checklist
+    - source code & libraries
+    - data collection process
+    - data pre-processing
+    - hyper parameters
+    - (?)
+    - (?)
+  - Kubeflow
+    - makes it easier for people to develop, deploy, manage ML clusters
+    - handles: development, training, serving, orchestration
+    - Kubernetes infrastructure (?)
+    - lab: goo.gle/kubeflow
+- Keynote: continuous delivery with Kubernetes by @pritianka - event - [PDF slides](https://static.sched.com/hosted_files/ossna19/c5/GitLab_Priyanka%20Sharma_Updated.pdf)
+  - Gitlab has fully remote employees & uses continuous delivery with Kubernetes
+  - continuous delivery = one step for manual deployment to prod (often for legal regulations)
+    - vs. continuous deployment = all automated
+  - "cycle time compression" = determines winners/losers (?)
+  - Gitlab runs on Gitlab, uses Ansible, & does not yet use kubernetes flow for CD
+  - focus on legacy first --> less risk (?)
+  - commit to canary in 2 hours
+    - weekly --> daily deployments
+    - all devs in an on-call rotation within 3 weeks
+  - culture shift
+    - quality is a priority
+    - no hot-patching unless PL & SL (?)
+    - every engineer is on the on-call rotation
+  - advice
+    - figure out workflows first
+    - no shiny objects (?)
+    - decouple infrastructure changes from people changes (?)
+- Keynote: living on the edge - computing as the next battleground - event - [PDF slides](https://static.sched.com/hosted_files/ossna19/9e/8.%20Arpit%20Joshipura.pdf)
+  - emerging edge apps -- fueling lower latency & accelerating processing
+    - hardware acceleration
+    - AI
+    - microservices
+  - top 5 edge services
+    - non-traditional video (e.g. 360° cameras)
+    - things that move (e.g. GPS ?)
+    - ?
+    - ?
+    - ?
+  - markets
+    - industrial manufacturing
+    - energy
+    - commerce
+    - IOT
+    - ?
+    - ?
+
+### Keynote: Open Data @ FB
+
+- FB's most well-known open source project: React
+- FB's work in connectivity or AI research is also often made available
+- FB contributes to the Urban Computing Foundation (with Google, Uber) for (geo) spatial computing
+- FB has [disaster maps](https://dataforgood.fb.com/tools/disaster-maps/)
+  - interested in
+    - what areas are affected
+    - where are humans evacuating from/to
+    - where has power/connectivity been disrupted
+    - where have displaced folks settled long-term
+  - partners with many first responders
+  - to maintain user privacy
+    - anonymization / aggregation
+    - add random noise
+    - spatial smoothing
+    - remove small counts
+  - 5 types of mapping
+    - FB population before/after (red = growing, blue = leaving)
+    - movement map = arrows of different thickness
+    - displacement map = where people eventually wind up
+    - network coverage = estimated by where # people are
+    - power availability = inference by # Android devices being charged
+- maps @ FB
+  - maps are used across Presence, Search, Events, etc.
+  - [OpenStreetMap](https://www.openstreetmap.org/) = free, editable map, with contributors from around the world
+  - OSM road coverage varies across the world (e.g. Central America, Central Africa, India, China have low coverage)
+  - mapping with AI-generated features
+    - access to higher-res satellite imagery + advances in deep learning --> drastic improvements in speed
+    - [RapiD](https://github.com/facebookincubator/RapiD) map editor tool
+    - AI + ground truth = better to have it already digitized so that volunteers can focus on the important stuff (e.g. whether a bridge can be crossed by cars or only by pedestrians)
+  - since 2018, all provinces of Thailand have been mapped
+  - [blog post 1](https://ai.facebook.com/blog/mapping-roads-through-deep-learning-and-weakly-supervised-training/) • [blog post 2](https://tech.fb.com/ai-is-supercharging-the-creation-of-maps-around-the-world/)
+
+### Crafting Good `good-first-issue`s
+
+- [PDF slides](https://static.sched.com/hosted_files/ossna19/de/ossna_2019_good_first_issues.pdf)
+- `good-first-issue`s and where to find them
+  - other labels like `good-first-issue`
+  - up-for-grabs
+  - easy-fix
+  - low-hanging-fruit
+  - beginner-friendly
+  - starter-bug
+  - jump-in
+- Why (take the time to) create `good-first-issue`s?
+  - Makes your project approachable
+  - Reduces the barriers to contribution - especially for groups underrepresented in Open Source
+  - Make contributors interested in your project (potentially)
+  - Create maintainable code
+  - Take care of the important stuff (coding is the easy part)
+  - Work towards growing the project
+- How to prepare for creating `good-first-issue`s
+  - Plan for accepting a Pull Request
+  - README, CONTRIBUTING, LICENSE, NOTICE, CODE_OF_CONDUCT
+  - GitHub's Issue Template
+  - GitHub's Pull Request Template
+  - Getting Started Tutorials
+  - Tests - linters, unit tests, functional tests
+  - Continuous Integration (Tern uses CircleCI and TravisCI and looking to try GitHub Actions)
+- How to create `good-first-issue`s
+  - Break a feature down into small tasks
+  - Document changes that are needed to complete the task
+  - Use stubs
+  - Pick changes in the modular part of the code
+  -
+  -
+- `good-first-issue` wins
+  - Supporting the contributor; This isn't a technical interview
+  - Tracking each `good first issue` to an impactful change
+  - Participating in group events
+- `good-first-issue` fails
+  - Assigning dependent issues to new contributors
+    - DO NOT put a new contributor in the critical path
+    - Contributors are totally OK with you taking over
+    - Contributors are NOT OK with you forcing them to adhere to your schedule
+  - Picking a task of unreasonably large scope
+  - Poorly documenting a good-first-issue
+- Takeaways
+  - Fosters a more inclusive community
+  - Forces more disciplined code and project management
+  - Grows the project and the community sustainably
+- Costs:
+  - More work up-front
+  - More planning than coding
+  - Not a steady source of goodfirst-issues
+  - Not guaranteed of retaining contributors
+
+### Open Source in Safety-Critical Apps, by `@_kate_steward`
+
+- Margaret Hamilton's code (Apollo on-board flight software) = first code off the planet
+  - it had to work the first time
+  - software would need to be able to detect an error & recover from it in real time
+- Dana Lewis
+  - cofounder of OpenAPS, glucose monitor running on Linux on a Raspberry Pi
+  - "Automated Insulin Delivery" book
+  - #wearenotwaiting
+- Agile software dev't = fail fast, fail early
+- software development for functional safety = uses "v-model" of development
+- users will demand accountability --> who is liable if something goes wrong in open source, safety-critical software?
+- is open source compatible with safety standards? yes, BUT
+- v-model = requires traceability (?)
+- (more notes)
