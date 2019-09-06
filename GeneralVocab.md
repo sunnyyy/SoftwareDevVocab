@@ -53,6 +53,7 @@
     - 2 = minor bug, requires some research
     - 4 = bug would take 1 week
     - 8 = bug would take entire sprint, aka 2 weeks
+  - __scrum master__ = kind of like a project manager
   - __velocity__ = measure of the amount of work a team can tackle during a single sprint
 - Misc. vocab
   - __P0 = Priority #0__ = minimum required for release
