@@ -25,6 +25,6 @@
 ## S3 transfer acceleration
 - basically using a CDN for S3 files
 - leverages CloudFront's globally distributed edge locations
-- as data arrives at an edge location, data os routed to S3 over an optimized network path
-- works for S3 uploads only (?)
-- reduces latency
+- instead of uploading directly to S3, use distinct URL to upload directly to edge location --> data is then uploaded to S3 via an optimized network path
+- reduces latency (except maybe if you're uploading to S3 in your local region)
+- [tool to compare upload speeds](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
