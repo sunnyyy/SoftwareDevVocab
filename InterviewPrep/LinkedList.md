@@ -38,7 +38,7 @@
   - some overhead for recursion
   - extra data structure to store flattened list, which would be of size n
   - __cons:__ copied list is inefficient for large structures
-- solution 2:
+- __solution 2:__
   - traverse first level from start
   - every time you encounter a node with a child, append the child & its list to the end of the first level
   - continue traversing the first level, and (at the tail of the original first level) you will get to the start of the old second level

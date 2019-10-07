@@ -116,7 +116,7 @@ void iterativePreorder(Node n) {
   - make 2 lists of ancestors & go upwards to find a common one
   - use HashSet to make comparison
   - `O(log(n)^2)` in a balanced tree, and you are on two equally-long branches with lowest ancestor at root --> worse than `O(log(n))` but better than `O(n)`
-- solution 2:
+- __solution 2:__
   - root is ancestor to everything, so start there
   - if target values are both < current node, then current = current.left
   - if target values are both ≥ current node, then current = current.right
