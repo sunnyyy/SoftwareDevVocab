@@ -1,5 +1,22 @@
 # Route 53
 
+## Vocab
+- __DNS = domain name servers__
+  - on port 53 --> where Route53 get its name
+  - like a phonebook that maps domain names (human-friendly web URLs) to IP addresses
+- __IP address = internet protocol__
+  - e.g. `http://82.124.53.1`
+- IPv4 vs. IPv6
+  - __IPv4__ = 32-bit field --> 4 billion addresses available --> we're running out
+  - __IPv6__ = 64-bit field --> 340 unodecillion addresses
+- __top-level domains__ = .com, .edu, .gov
+- __second-level domains__ = the ".co" in .co.uk, the ".gov" in .gov.uk
+- __domain registrars__
+  - authority that assigns DNs & registers them with InterNIC / ICANN
+  - each DN becomes registered in a central "WhoIS" database
+- __SOA = state of authority record__
+  - stores name of server that supplies data for the URL (?)
+
 ## Quick facts
 - Route 53 = Amazon's DNS service
 - allows you to map your domain names to:

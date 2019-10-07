@@ -96,5 +96,14 @@ public class ActorGraphNode {
 		}
 	}
 }
-
+```
+- pros:
+  - can return # for many actors
+  - while difference is target node, Bacon #s are same, so no need to recompute
+  - easier to compute # for new actors
+- runtime:
+  - evaluates every node 1x & every (valid) edge 2x
+  - in a graph with `m` nodes & `n` edges, runtime is O(m+n)
+  - assuming `n >> m` this becomes `O(n)`
+  - if you've already precomputed, then runtime is `O(1)` for `getBaconNumber()`
 
