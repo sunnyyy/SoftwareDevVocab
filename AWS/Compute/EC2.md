@@ -78,6 +78,24 @@
 
 -----
 
+# EC2 Labs
+
+## Lab: using IAM roles with EC2
+- create EC2 role "AdministratorAccess"
+- EC2 console --> instance settings --> apply role
+- via command line: even without stored credentials, EC2 instance should have access to do `X` (?????) --> run `aws s3 ls`
+- using roles
+  - safer than storing access key on individual EC2 instance
+    - in event of hacking of EC2 instance, hackers could still run AWS command line (which isn't great), but wouldn't have access to access key ID nor secret access key
+  - easier to manage
+  - can be assigned to EC2 instance after creation via either the console or the command line
+
+## Lab: using bootstrap scripts
+- way of customizing EC2 deployments
+- while creating EC2 instances in step 3 ("configure instance details") --> under "Advanced Details", enter bash script directly, or attach file --> this will perform your script actions
+
+-----
+
 ###### Notes:
 [IOPS]: https://en.wikipedia.org/wiki/IOPS
 - [IOPS](https://en.wikipedia.org/wiki/IOPS) = IO operations per second; used to measure performance for compute resources

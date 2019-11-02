@@ -37,7 +37,7 @@ public static String integerToString(int n) {
 		s = remainder + s;
 		n /= 10;
 	}
-	return neg ? "-"+s : s;
+	return (neg ? "-"+s : s);
 }
 ```
 
