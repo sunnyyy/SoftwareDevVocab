@@ -58,6 +58,39 @@
   - cold HHD (cheapest)
   - magnetic
 
+## AMI (Amazon Machine Images) types
+- you can select your AMI based on ...
+  - region
+  - OS
+  - architecture (32-bit / 64-bit)
+  - launch permissions
+  - storage for root device
+    - instance store ("ephemeral storage")
+    - EBS-backed volume
+- all AMI's are either backed by...
+  - Elastic Block Store
+    - root device for an instance laucnehd from the AMI is an EBS volume created from EBS snapshot
+    - AMI can be stopped
+    - data persists after AMI is stopped
+  - instance store
+    - root device for instance launched from AMI = instance store volume created from a template in S3
+    - called "ephemeral storage" because instance store volumes can't be stopped --> if underlying host fails, you lose your data
+- both stypes can be __rebooted__ without losing data
+- by default, both ROOT volumes will be deleted on termination
+  - however, with EBS volumes, you can tell AWS to keep the root device volume
+
+## ??? Enctypted Root Device: volumes & snapshots
+- snapshots of encrypted volumes are auto-encrypted (must config if you don't want that)
+- volumes restored from encrypted snapshots are auto-encrypted
+- you can share snapshots but only if they're unencrypted
+- these snapshots can be shared with other AWS accounts or made public
+- you can now encrypt root device volumes upon creation of EC2 instances
+  - --> if not already encrypted, process is to ...
+    - create shapshot of unencrypted root device volume
+    - create copy of snapshot & select "encrypt" option
+    - create an AMI from encrypted snapshot
+    - use that AMI to launch new encrypted instances
+
 ## Security / Encryption
 - __least privilege__ = always give users minimum access required
 - __create groups__

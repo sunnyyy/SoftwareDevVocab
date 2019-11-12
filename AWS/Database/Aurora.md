@@ -21,7 +21,7 @@
 
 ## Types of replicas
 
-| Aurora replicas | MySQL replicas |
-|-----------------|----------------|
-| up to 15 copies | up to 5 copies |
+| Aurora replicas     | MySQL replicas         |
+|---------------------|------------------------|
+| up to 15 copies     | up to 5 copies         |
 | automated failovers | NO automated failovers |
