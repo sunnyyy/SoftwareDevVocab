@@ -1,24 +1,32 @@
 # IAM = Identity Management Access
 
+## Quick facts
+- vocab
+  - users = people
+  - group = collections of users
+  - role = set of permissions
+  - policy = doc that defines 1+ permissions
+- 
+
 ## Details
 - centralized control of AWS account
 - shared access
 - granular permissions (diff levels of permissions)
 - identity federation (external login, e.g. via FB)
-- MFA/2FA
+- should always set up MFA/2FA on root account
 - temp access for users/devices/services
 - set up PW rotation policy (e.g. PW expires in 90 days)
 - integrates w/ many diff AWS services
 - supports PCI DSS compliance ($ card)
+- is universal within AWS --> no regions
+- root account = account that signed up with AWS
+- when new users are first created ...
+  - they have no permissions --> permissions must be assigned
+  - are assigned an access key ID + secret access key --> only viewable 1x --> if lost, must regenerate
+- you can create + customize your own password rotation policies
 
-## Vocab
-- users = people
-- group = collections of users
-- role = set of permissions
-- policy = doc that defines 1+ permissions
-
-## Comparing different types of IAM policies
-- 3 types of IAM policies: managed, customer-managed, and inline
+## IAM policies
+- 3 types: managed, customer-managed, and inline
 
 ### Managed policy
 - created / admin'ed by AWS
