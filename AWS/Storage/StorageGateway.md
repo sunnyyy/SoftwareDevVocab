@@ -42,6 +42,6 @@
         - 1 GB - 32 TB
 
 ## Tape Gateway
-- VTL interface lets you leverage your existing tape-based backup app infrastructure to store data on virtual tape cartridges that you create on your tape gateway
+- Virtual Tape Library interface lets you leverage your existing tape-based backup app infrastructure to store data on virtual tape cartridges that you create on your tape gateway
 - each tape gateway is pre-config'ed with a media charger + tape drives, which are available to your existing client backup apps as iSCSI devices
 - you add tape cartridges as you need to archive data

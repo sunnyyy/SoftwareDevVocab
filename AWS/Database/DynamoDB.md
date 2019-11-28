@@ -1,7 +1,8 @@
 # DynamoDB
 
 ## Quick facts
-- fast, flexible, NoSQL database service for apps that need consistent, single-digit millisecond latency at any scale
+- NoSQL database
+- consistent, single-digit millisecond latency at any scale
 - supports both document & key/value data models
 - flexible data model
 - reliable performance

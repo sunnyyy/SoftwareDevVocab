@@ -1,46 +1,6 @@
 # RDS = Relational Database Service
 
-## relational vs. non-relational DBs
-- relational DBs
-  * like traditional spreadsheets
-  * are tables with rows and pre-defined fields (columns) --> e.g. first name, last name, gender
-  * examples:
-    - SQL server
-    - Oracle
-    - MySQL server
-    - PostgreSQL
-    - Amazon Aurora (~ MySQL ?)
-    - MariaDB
-- non-relational DB
-  * do __*NOT*__ need pre=defined table structure
-  * special vocab:
-    - collection = table
-    - document = row
-    - key-value pairs = fields
-  * examples:
-    - JSON formatted
-    - NoSQL
-
-## Data warehousing
-- used for business intelligence
-- used to pull in large/complex datasets
-- usually used by management to do queries on data (e.g. current performance vs. targets, etc.)
-  * --> do __*NOT*__ make these queries on your prod DBs! it will cause significant latency
-- examples:
-  * Cognos
-  * Jaspersoft
-  * SQL server reporting services
-  * Oracle Hyperion
-  * SAP
-- from a DB perspective & from an infrastructure layer, data warehousing DBs use a different type of architecture entirely
-
-### OLTP vs. OLAP
-- OLTP = online transaction processing
-- OLAP = online analytics processing
-  * example #1: for order #1010212, pull up the row of data with name, data, address, delivery state
-  * example #2 (more complex): net profit for Asia Pacific & Europe region for some digital product --> pulls in large # of records --> `sum(Asia Pacific data)` and `sum(Europe data)` --> get unit cost per item per region --> get sales price of each item
-
-## AWS DB types
+## Quick facts
 - RDS (relational database service) = OLTP
   * SQL
   * MySQL
@@ -48,11 +8,9 @@
   * Oracle
   * AuroraDB
   * MariaDB
-- DynamoDB = NoSQL
-- Redshift = OLAP
-- Elasticache = in-memory caching
-  * Memcached
-  * Redis
+- runs on VM's, but you can't log in
+- patching the RDS OS is Amazon's responsibility
+- is NOT serverless (with the exception of Aurora serverless)
 
 ## Backups
 - AWS has 2 types of backups
@@ -79,8 +37,7 @@
 
 ## Encryption at rest
 - done via KMS
-- once your RDS instance is encrypted, the data stored at rest in the underlying storage is encrypted, as well as its auto backups, read replicas, and snapshots
-- presently, you can't directly encrypt an existing DB instance
+- once your RDS instance is encrypted, the data stored at rest in the underlying storage (+ ___all___ its auto backups, read replicas, and snapshots) is encrypted
 - to encrypt an existing DB, you have to first create a snapshot, make a copy of the snapshot, & encrypt the copy (during setup)
 - available for:
   - SQL server
@@ -91,15 +48,14 @@
   - Amazon Aurora
 
 ## Multi-AZ
-- you have an exact copy of a prod DB in another AZ, and AWS handles the replication (sync'ing) for you
-- if emergency, Amazon RDS will auto-failover to standby RDS instance
+- exact copy of a prod DB in another AZ (auto sync'ed)
+- for disaster recovery only!
+  - in emergency, Amazon RDS will auto-failover to the standby RDS instance
   - e.g. if you have an RDS instance with DNS `myRds.us-east-1a.rds.aws.com` and a standby RDS instance `myRds.us-east-1b.rds.aws.com`, the DNS endpoint will be auto-switched
-- uses:
-  - for disaster recovery only!
-    - ex: planned DB maintenance
-    - ex: DB instance failure
-    - ex: AZ failure
-  - __*NOT*__ for improved performance --> for that, use __read replicas__
+- example use cases:
+  - planned DB maintenance
+  - DB instance failure --> can be simulated by rebooting the RDS instance
+  - AZ failure
 - available for:
   - SQL server
   - Oracle
@@ -108,20 +64,16 @@
   - MariaDB
 
 ## Read Replicas
-- a read-only copy of your prod DB, done via async replication from the primary RDS instance to the read replica
-- use cases:
-  - for very read-heavy DB workloads
-  - for scaling out
-  - __*NOT*__ for disaster recovery --> for that, use __multi-AZ__
+- read-only copy of your prod DB (auto async'ed)
+- for very read-heavy DB workloads --> for scaling out only!
 - details:
-  - must have auto-backups enabled to deploy a read replica
+  - must have auto-backups enabled
   - max 5 read replicas of any DB
-  - you can have read replicas of read replicas --> but watch out for latency!
   - each read replica will have its own DNS endpoint
-  - your read replica can be in a different AZ
-  - you can create a read replica of a multi-AZ source DB
-  - your read replica can be in a 2nd region
-  - read replicas can be promoted to be their own DB __*BUT*__ this will break the replication
+  - can have read replicas of read replicas --> but watch out for latency!
+  - can be multi-AZ
+  - can be in a 2nd region --> but watch out for latency!
+  - read replicas can be promoted to be their own DB ___BUT___ this will break the replication
     - useful for if you want to run an experiment on your data without affecting read data
 - available for:
   - MySQL server

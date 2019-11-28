@@ -1,7 +1,7 @@
 # CloudFront
 
 ## Quick facts
-- CDN = content-delivery network
+- __CDN = content-delivery network__
   - system of distributed servers that deliver webpages, etc. to a user based on the user's geolocation
   - speeds up delivery of static content (e.g. HTML, CSS, Javascript)
 - CloudFront = AWS's CDN service
@@ -12,8 +12,8 @@
     - can be S3, EC2, Elastic LB, or Route53
     - CloudWatch can also work with any non-AWS origin server
   - __distribution__ = a collection of edge locations; aka a specific CDN
-    - __*web distribution*__ = used for websites, HTTP/HTTPS
-    - __*RTMP*__ = Adobe real-time messaging protocol = used for media streaming / Flash multi-media content
+    - ___web distribution___ = used for websites, HTTP/HTTPS
+    - ___RTMP___ = Adobe real-time messaging protocol = used for media streaming / Flash multi-media content
 - user makes request to their nearest edge location
   - ⟶ edge location calls main server
   - ⟶ edge lcoation gets the content & delivers it to the user while saving a cached version of that content

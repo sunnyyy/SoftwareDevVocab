@@ -6,6 +6,7 @@
 - quickly scale capacity ↕
 - charges you only for the capacity you use
 - failure-resilient
+- termination protection turned ___OFF___ by default --> must turn it on yourself
 
 ## Plans
 - __on demand__
@@ -58,7 +59,7 @@
   - cold HHD (cheapest)
   - magnetic
 
-## AMI (Amazon Machine Images) types
+## AMI (Amazon Machine Image) types
 - you can select your AMI based on ...
   - region
   - OS
@@ -67,17 +68,14 @@
   - storage for root device
     - instance store ("ephemeral storage")
     - EBS-backed volume
-- all AMI's are either backed by...
-  - Elastic Block Store
-    - root device for an instance laucnehd from the AMI is an EBS volume created from EBS snapshot
-    - AMI can be stopped
-    - data persists after AMI is stopped
-  - instance store
-    - root device for instance launched from AMI = instance store volume created from a template in S3
-    - called "ephemeral storage" because instance store volumes can't be stopped --> if underlying host fails, you lose your data
-- both stypes can be __rebooted__ without losing data
-- by default, both ROOT volumes will be deleted on termination
-  - however, with EBS volumes, you can tell AWS to keep the root device volume
+
+| root device type             | EBS (Elastic Block Store)               | instance store ("ephemeral storage") |
+|------------------------------|-----------------------------------------|--------------------------|
+| what is it?                  | an EBS volume created from EBS snapshot | instance store volume created from a template in S3 |
+| can AMI be rebooted?         | yes, without losing data                | yes, without losing data |
+| can AMI be stopped?          | yes, and the data will persist          | no                       |
+| if underlying host fails ... | the data will persist                   | the data will be lost    |
+| if AMI is terminated ...     | by default, the root volume will be deleted (unless you had manually told AWS to keep it) | the root volume will be deleted (no option to change this) |
 
 ## ??? Enctypted Root Device: volumes & snapshots
 - snapshots of encrypted volumes are auto-encrypted (must config if you don't want that)
@@ -109,6 +107,57 @@
   - you can then make an AMI (Amazon achine image) of this snapshot and deploy the encrypted root device volume
   - you can encrypt additional attached volumes using the console, CLI, or API
 
+### Security groups
+- all inbound traffic is blocked by default
+- all outbound traffic is allowed
+- changes to security groups take effect immediately
+- you can have any number of EC2 instances within a security group
+- you can have multiple security groups attached to an EC2 instance
+- security groups are __stateful__ (???)
+- if you create an inbound rule allowing traffic in, that traffic is auto allowed back out again
+- you can't block specific IP addresses --> use ACL's for that
+- can specify "allow" rules but not "deny" rules
+
+### Roles
+- more secure than storing access key + secret access key on individual EC2 instances
+- easier to manage
+- can be assigned to an EC2 instance after creation, via both AWS console & AWS CLI
+- are universal (???)
+
+### Misc.
+- bootstrap scripts
+  - run when an EC2 instance first boots
+  - automates software installs and updates
+- instance metadata & user data
+  - used to get info about an instance (e.g. public IP)
+  - curl commands:
+
+## EC2 Placement Groups
+- 3 types
+  - __clustered placement group__
+    - low network latency / high network throughput
+    - _CANNOT_ span multiple AZ's
+  - ____
+    - individual critical EC2 instances
+  - ____
+    - multiple EC2 instances
+    - HDFS, HBase, Cassandra
+
+| | clustered placement group | spread placement group | partitioned |
+|-|---------------------------|------------------------|-------------|
+| purpose |
+| can span multiple AZ's? | no | yes | yes |
+| homogeneous instances?  | recommended | N/A | N/A |
+
+- the name you specify for a placement group must be unique within your AWS account
+- only certain types of instances can be launched in a placement group
+  - compute-optimized
+  - GPU
+  - memory-optimized
+  - storage-optimized
+- can't merge placement groups
+- can't move existing instances into a placement group --> workaround is to create an AMI from the instance, then launch a new instance from that AMI into a placement group
+
 -----
 
 # EC2 Labs
@@ -126,6 +175,14 @@
 ## Lab: using bootstrap scripts
 - way of customizing EC2 deployments
 - while creating EC2 instances in step 3 ("configure instance details") --> under "Advanced Details", enter bash script directly, or attach file --> this will perform your script actions
+
+## Lab: instance metadata
+- ssh into an EC2 instance
+- get user data: `curl http://169.254.169.254/latest/user-data` --> returns content in bootstrap script
+- get metadata: `curl http://169.254.169.254/latest/meta-data` --> see list of options
+  - e.g. choose to see ipv4 address
+    - --> `curl http://169.254.169.254/latest/meta-data/local-ipv4`
+    - --> `curl http://169.254.169.254/latest/meta-data/public-ipv4`
 
 -----
 

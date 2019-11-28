@@ -1,28 +1,14 @@
 # CloudWatch
 
 ## Quick facts
-- monitoring service to monitor your AWS resources & the apps you run on AWS
-- examples:
-  * compute
-    - Autoscaling groups
-    - Elastic Load Balancer
-    - Route53 health checks
-  * storage & content delivery
-    - Elastic Beanstalk volumes
-    - storage gateways
-    - CloudFront
-  * database & analytics
-    - DynamoDB
-    - Elasticache nodes
-    - RDS (relational database system ???) instances
-    - elastic MapReduce job flows
-    - RedShift
-  * other
-    - SNS topic
-    - SQS queues
-    - opsworks ???
-    - CloudWatch logs
-    - estimated charges on your AWS bill
+- for monitoring performance
+- can monitor most AWS services + apps that run on AWS
+- NOTE: not the same as CloudTrail, which audits API calls
+- use cases
+  - create ___dashboards___
+  - set ___alarms___ to notify you when thresholds are hit
+  - create ___events___ based on ___state changes___ in your AWS services
+  - aggregate, monitor, and store ___logs___
 
 ## Details
 - metric granularity:
@@ -48,6 +34,9 @@
   * you can set what actions you want to be taken, e.g. get SNS notification
 - CloudWatch can even be used on-premise ⟶ just download & install the SSM agent + CloudWatch agent
   * default EC2 monitoring is 5 min; detailed is 1 min
+- CLI
+  - you need to set up access in IAM
+  - list of basic commands: https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/index.html
 
 ### Metric granularity
   * depends on the AWS service

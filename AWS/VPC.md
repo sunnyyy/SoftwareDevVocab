@@ -41,6 +41,12 @@
   - you can only peer in a __"star configuration"__, e.g. 1 central VPC peered with 4 others, where peer relationships are NOT transitive
 - __route table__ = specifies how packets are forwarded between subnets within your VPC, the internet, and your VPN connection
 
+## Custom VPCs & ELBs
+
+## VPC flow logs
+
+## VPC endpoints
+
 -----
 
 # VPC Labs
