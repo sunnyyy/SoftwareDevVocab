@@ -1,16 +1,42 @@
 # VPC = Virtual Private Cloud
 
 ## Quick facts
-- virtual data center in the cloud
-- lets you provision a logically-isolated section of AWS cloud where you can launch AWS resources in a virtual network
+- provision a logically-isolated section of AWS cloud where you can launch AWS resources in a virtual network
+- consists of ...
+  - internet gateways (or virtual private gateways)
+  - route tables
+  - network ACL's
+  - subnets
+  - security groups
+
+## Details
 - you have complete control over your virtual networking environtment, including:
   - selection of your own IP address range
   - creation of subnets
   - configuration of route tables, network gateways, etc.
-- ex: you can create a public-facing subnet for your webservers with access to the internet, and place your backend systems (databases, application servers, etc.) in a private-facing subnet with NO internet
-- you can leverage multiple layers of security (e.g. security groups, network ACLs) to control access to EC2 instances in each subnet
+- you can leverage multiple layers of security to control access to EC2 instances in each subnet
+  - security groups = stateful
+  - network ACLs = stateless
+- example use case:
+  - you create a public-facing subnet for your webservers with access to the internet
+  - you place your backend systems (databases, application servers, etc.) in a private-facing subnet with NO internet
 - you can create a hardware VPN connection between your corp data center and your VPC --> leverage AWS cloud as an extension of your corp data center
+- what can you do with VPC's?
+  - launch instances into your chosen subnet
+  - assign custom IP address ranges in each subnet
+  - configure route tables between subnets
+  - create internet gateway & attach it to your VPC
+  - better security control over AWS resources
+  - instance security groups
+  - use a network ACL for each subnet
+- default VPC vs. custom VPC
+  - default = user-friendly, can immediately deploy instances
+  - all subnets in default VPC have rout out to internet
+  - each EC2 instance has both a public and a private IP
 - __bastion host__ = machine in a public subnet that you use to connect to a private subnet
+- __route table__ = specifies how packets are forwarded between subnets within your VPC, the internet, and your VPN connection
+
+## Subnets ???
 - internet assigned #s authority (???)
 - 3 reserved IP's for private IP ranges
   - 10.0.0.0 <--> 10.255.255.255 -- (10/8 prefix)
@@ -20,26 +46,32 @@
   - 192.168.0.0 <--> 192.168.255.255 -- (192.168/16 prefix)
 - use [CIDR.xyz](http://cidr.xyz/) tool to (???)
 - Amazon VPC must be between /16 and /28 (???)
-- recap:
-- what can VPC's do?
-  - launch instances into your chosen subnet
-  - assign custom IP address ranges in each subnet
-  - configure route tables between subnets
-  - create internet gateway & attach it to your VPC
-  - better security control over AWS resources
-  - instance security groups
-  - subnet network ACLs
-- default VPC vs. custom VPC
-  - default = user-friendly, can immediately deploy instances
-  - all subnets in default VPC have rout out to internet
-  - each EC2 instance has both a public and a private IP
-- VPC peering
-  - you can connect one VPC with another via a direct network route using private IP addresses
-  - instances behave as if on same private network
-  - you can peer VPCs with VPCs in same AWS account _OR_ different AWS account
-  - you can peer across regions
-  - you can only peer in a __"star configuration"__, e.g. 1 central VPC peered with 4 others, where peer relationships are NOT transitive
-- __route table__ = specifies how packets are forwarded between subnets within your VPC, the internet, and your VPN connection
+
+## Network Access Control Lists (NACL)
+- rules
+  - each rule has a number; suggested assigning rules in increments of 100
+  - rules are executed in ascending order; first 100, then 200, etc.
+  - if you want to use both `deny` & `allow` rules, make sure your `denies` are assigned to a lower number than your `allows`
+  - inbound rule are separate from outbound rules
+- you can block IP addresses with NACLs, but not security groups
+- a subnet must be associated with a NACL, and can only be associated with one NACL at once
+- one NACL may be used for multiple subnets
+- default NACL
+  - when you create a VPC, a NACL is auto-created
+  - by default, allows all inbound / outbound traffic
+  - subnets will be auto-associated with that default NACL
+- custom NACL
+  - by default, each newly-created custom NACL denies all traffic until you add rules
+  - if you move a subnet to a different NACL, it will no longer be associated with its previous NACL
+- NACLs are __stateless__, aka responses to allowed inbound traffic are subject to rules for outbound traffic (& vice versa)
+
+## VPC peering
+- you can connect one VPC with another via a direct network route using private IP addresses --> instances behave as if on same private network
+- you can peer VPCs with VPCs in same AWS account _OR_ a different AWS account
+- you can peer across regions
+- you can only peer in a __"star configuration"__, aka peer relationships are NOT transitive
+  - aka let's say you had a VPC peering config like `A` <--> `B` <--> `C`
+  - `A` would not be connected to `C`, unless you specifically set up a connection between `A` and `C`
 
 ## Custom VPCs & ELBs
 
@@ -51,7 +83,7 @@
 
 # VPC Labs
 
-## Build custom VPC
+## Lab: build a custom VPC
 
 ### Part 1: Create default VPC
 - find "VPC" in AWS console under "Network & Content Delivery"
@@ -113,3 +145,34 @@
   - `ssh ec2-user@<privateIP> -i <private key file>` --> now ssh'ed from public web server into private DB server
 - ex: `su` to root --> run `yum update -y` --> can't update bc this private server has no internet access
 - NAT instances vs NAT gateways (???)
+
+## Lab: Network Access Control Lists (NACL)
+- AWS console : ? : VPC --> ACL's --> (from earlier VPC setup) see 2 default ACL's, one with 2 subnets + one with 3 subnets
+  - click on them to see inbound rules
+    - rule 100 for IPv4
+    - rule 202 for IPv6
+- create a new NACL --> add name + select VPC --> upon creation, both inbound & outbound rules are set to `deny`
+- `ssh` into web server
+```bash
+service httpd status        # to see status of Apache installation
+yum install httpd -y        # to install Apache
+chkconfig httpd on          # creates simlink
+service httpd start         # starts Apache
+cd /var/www/html; ls        # see that it's empty
+vim index.html              # create a simple HTML file and save
+```
+  - --> go online --> notice that the webpage is visible because that instance is currently associated with the default subnet, which currently allows all traffic
+- move subnet over to new NACL
+  - click new ACL --> click new subnet associations --> add the default `10.0.0.0` subnet --> see the change
+  - go back to the old default ACL --> notice that it's no longer part of subnet `10.0.0.0`, because it's been moved over
+- go back to browser, refresh page --> will time out becaues we didn't assign the new NACL to allow HTTP/S traffic
+- go to new NACL --> click "inbound rules" tab --> add new rules
+  - rule = 100 // custom TPC rule // port range = 80 (for HTTP traffic) // source = `0.0.0.0/0` // allow/deny = allow
+  - rule = 200 // ditto, except port range = 443 (for HTTPS traffic)
+  - rule = 300 // ditto, except port range = 22 (for SSH traffic)
+- click "outbound rules" tab --> add new rules
+  - rule = 100 // custom TPC rule // port range = 80 // source = `0.0.0.0/0` // allow/deny = allow
+  - rule = 200 // ditto, except port range = 443
+  - rule = 300 // ditto, except protocol = TCP(6) + port range 1024-65535 --> for [__ephemeral ports__](https://en.wikipedia.org/wiki/Ephemeral_port)
+- notice that the webpage is now visible again in the browser
+- 
