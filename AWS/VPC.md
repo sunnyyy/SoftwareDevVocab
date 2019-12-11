@@ -79,6 +79,21 @@
 
 ## VPC endpoints
 
+## Lambda + VPCs
+- _aka enabling Lambdas to access resources on a VPC_
+- some uses cases require Lambda to access resources inside a private VPC
+  - e.g. read/write to RDS in VPC
+  - e.g. shut down EC2 instance in a VPC, in response to a security alert
+- to enable this, you must allow function to connect to a private subnet
+- Lambda requires the following VPC configs ...
+  - private subnet ID
+  - security group ID (+ IAM access)
+- ... to set up __Elastic Network Interfaces__ (ENI) using an available IP address from your private subnet CIDR range
+- ... security group then allows Lambda to access resources in VPC
+- you can add VPC info to Lambda function config ...
+  1. using `vpc-config` parameter: // STRING COMMAND HERE //
+  2. via console (see lab)
+
 -----
 
 # VPC Labs
@@ -175,4 +190,24 @@ vim index.html              # create a simple HTML file and save
   - rule = 200 // ditto, except port range = 443
   - rule = 300 // ditto, except protocol = TCP(6) + port range 1024-65535 --> for [__ephemeral ports__](https://en.wikipedia.org/wiki/Ephemeral_port)
 - notice that the webpage is now visible again in the browser
-- 
+
+## Lab: Lambda + VPC
+- add VPC info to Lambda function's config via console
+  - AWS console : compute : Lambda
+  - --> create function --> author from scratch --> give name + defaults --> create
+  - --> create test event
+  - scroll all the way down in Lambda function to "network" section
+    + select your VPC
+    + select subnet(s) (suggested minimum of 2 subnets for high availability)
+    + select security group(s)
+  - --> save --> see error "your role does not have VPC permissions"
+  - in Lambda function, scroll down to "execution role" section
+    - Lambda requires permission to create ENI's, which can be done via ...
+      - editing existing IAM role
+      - creating new IAM role to include the permission
+  - see in Lambda designer that we now have 3 new permissions for Amazon EC2
+    - create ENI
+    - delete ENI
+    - describe ENI
+- redo earlier steps --> this should now work
+- wrap up steps --> delete Lambda function + IAM role

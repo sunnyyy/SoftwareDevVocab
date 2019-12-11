@@ -30,4 +30,16 @@
   - build your Docker image
   - tag your image
   - push the image to the newly-created repo
-- 
+- launch new docker img
+  - AWS console : ? : Amazon Container Services --> scroll down left nav to ECS --> task definitions
+  - --> create new task definition
+    - type = EC2 + new name + keep most defaults + task memory = 512 MB + CPU = 512 MB (since this is only a tiny website)
+    - --> add new container
+      - new name + img = registry URL (obtained via ECR --> repositories --> click on repo --> get repo URI) + keep default memory + new port mappings 80:80:TCP + leave out health check + keep env settings blank
+    - --> add --> create
+- view
+  - click "actions" dropdown --> "create new service" --> will auto-find the newly created task definition & cluster
+  - add new service name + keep # tasks = 1 + keep placement templates = "AZ balanced spread" --> next --> LB type = none --> next --> ASG = do not adjust (default) --> create service
+  - click "myservice" --> under tasks tab, see that the task definition is running --> under events tab, see that "service ((name)) has reached a steady state"
+  - go to AWS console : compute : ECS --> clusters --> click on your cluster --> click EC2 instances tab --> click on the EC2 instance --> grab public IP address --> enter in browser --> see it online
+

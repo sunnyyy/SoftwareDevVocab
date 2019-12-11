@@ -65,9 +65,7 @@
   - preferred for mission-critical prod systems
   - rollback process only requires terminating the new instance & new auto-scaling group
 
------
-
-# RDS (Relational Database Services) + Beanstalk
+## RDS (Relational Database Services) + Beanstalk
 
 Elastic Beanstalk supports 2 ways of integrating RDS
 1. launch RDS instance from within Beanstalk console
@@ -87,6 +85,19 @@ Elastic Beanstalk supports 2 ways of integrating RDS
     1. you must add an additional security group to your Beanstalk env's auto-scaling group
     2. you'll need to provide connection info to your app servers (endpoint, password) using Beanstalk's _env properties_ (?)
 
+## Docker containers + Beanstalk
+- Elastic Beanstalk supports deployment of Docker containers, which are self-contained and include all config info + software your web app needs
+- you can either deploy ...
+  1. a single Docker container
+    - run a single Docker container on an EC2 instance provisioned by Elastic Beanstalk
+  2. multiple Docker containers
+    - use Elastic Beanstalk to build an ECS cluster, and deploy multiple docker containers on each instance
+- to deploy your code, upload a `zip file` with your code bundle to Elastic Beanstalk
+  - code can be uploaded directly from your local machine
+  - code can be linked from public S3 bucket
+- to upgrade your code, upload a new version of the zip file
+- it's possible to store your code in CodeCommit, but you'd have to use the Elastic Beanstalk CLI to do that
+
 -----
 
 # Labs
@@ -102,3 +113,23 @@ Elastic Beanstalk supports 2 ways of integrating RDS
 - v.2: upload v.2 to "App Versions"
 - click "All Apps" --> go back to Dashboard --> click "Config" tab --> env --> config --> "Modify rolling deployments" --> all-at-once (just for this lab) --> deploy
 - now look at app versions --> v.2 should show as "live"
+
+## Lab: Docker container + Beanstalk
+- AWS console : compute : Elastic Beanstalk
+- create a web app
+  + name
+  + platform = 1 Docker
+  + upload code (zip file with Dockerfile & `app.py`)
+  + will give you a unique version label
+  + --> upload --> create app --> wait
+- back in Elastic Beanstalk console, see that the app is healthy & online
+  - --> see URL near top --> open the URL in a new tab --> see your new website running on Docker containers in Elastic Beanstalk
+- upgrade to V2
+  - "upload & deploy" --> upload V2 of zip file --> wait --> see V2 online after a few mins
+- revert to previous version
+  - "upload & deploy" --> see info banner: "to deploy a previous version, go to 'app versions' page"
+  - --> select previous version
+  - --> "actions" dropdown
+  - --> click "deploy"
+- terminate
+  - go to "environments" left tab --> "actions" dropdown --> click "delete app" --> deletes entire Elastic Beanstalk environment for you

@@ -50,6 +50,33 @@ user searches ⟶ search goes to __EC2__ ⟶ search gets packaged in __SQS__ ...
 - regular __short polling__ returns immediately, even if queue being pulled from is empty
 - __long polling__ doesn't return response until a message arrives in the queue, or long poll times out ⟶ can save $$
 
+## SQS delay queues
+- postpone delivery of new messages to a queue for a # of seconds
+- messages sent to the delay queue are invisible to consumer during delay period
+- delay = 0 seconds (default) to 900 seconds (15 mins)
+- for standard queues, changing the settings wouldn't affect delay of existing messages, only of new messages
+- for FIFO, changing the settings would affect the delay of messages already in the queue
+- when to use?
+  - large distribution apps, which may need a delay in processing
+  - when delay is needed for entire queue
+  - e.g. a few seconds delay may allow updates to a DB for stocks / ETFs, before sneding a notification to a customer
+  - e.g. confirming an online sales transaction
+
+## large SQS messages
+- large message = 256 KB - 2 GB
+- requires:
+  - S3 (bucket) to store message
+  - AWS SDK for Java, for API, for S3 bucket + job operations
+  - __Amazon SQS extended client library for Java__
+    - specifies whether messages are always stored in S3, or only those messages that are over 256 KB
+    - can send a message that references a message object stored in S3
+    - can get a message object from S3
+- can NOT be done via:
+  - AWS CLI
+  - AWS console / SQS console
+  - SQS API
+  - any other AWS SDK
+
 ## Exam tips
 - SQS = distributed message queueing system
 - allows decoupling of app components
